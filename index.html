@@ -80,6 +80,13 @@
           </div>
 
           <div style="margin-bottom:20px;">
+            <label style="display:block;font-size:14px;font-weight:600;color:#2d3748;margin-bottom:8px;">Phone Number *</label>
+            <input type="tel" id="phone" placeholder="+234 801 234 5678" required
+              style="width:100%;padding:12px 14px;border:1.5px solid #dfe4ea;border-radius:9px;font-size:14.5px;font-family:inherit;transition:border-color 0.15s,box-shadow 0.15s;">
+            <p style="font-size:12px;color:#9ba4b4;margin-top:5px;">Include your country code &mdash; we&rsquo;ll use this to add you to the innovator community group chat.</p>
+          </div>
+
+          <div style="margin-bottom:20px;">
             <label style="display:block;font-size:14px;font-weight:600;color:#2d3748;margin-bottom:8px;">Project / Company Name *</label>
             <input type="text" id="projectName" placeholder="What is your project or company called?" required
               style="width:100%;padding:12px 14px;border:1.5px solid #dfe4ea;border-radius:9px;font-size:14.5px;font-family:inherit;transition:border-color 0.15s,box-shadow 0.15s;">
@@ -211,7 +218,7 @@ window.app = {
 
   validateSection(n) {
     if (n === 1) {
-      const fields = [['fullName','Full Name'],['email','Email Address'],['projectName','Project / Company Name']];
+      const fields = [['fullName','Full Name'],['email','Email Address'],['phone','Phone Number'],['projectName','Project / Company Name']];
       for (let [id, label] of fields) {
         const el = document.getElementById(id);
         if (!el || !el.value.trim()) {
@@ -284,6 +291,7 @@ window.app = {
       _subject: 'NBTI Intake: ' + document.getElementById('fullName').value + ' — ' + document.getElementById('projectName').value,
       Name: document.getElementById('fullName').value,
       Email: document.getElementById('email').value,
+      Phone: document.getElementById('phone').value,
       Project: document.getElementById('projectName').value,
       'Readiness Stage': document.querySelector('input[name="ladder"]:checked').value,
       'Support Needed': supportChecked.join(', '),
@@ -294,11 +302,11 @@ window.app = {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting…';
 
-    // FormSubmit.co AJAX endpoint — free, no account needed, direct to email.
-    // PRIMARY recipient: valerie@phoennixai.com  ·  CC: eloyiadah@ukald.com
-    // NOTE: the very first submission triggers a one-time activation email to
-    // valerie@phoennixai.com — click the link in it BEFORE the session, or nothing arrives.
-    fetch('https://formsubmit.co/ajax/valerie@phoennixai.com', {
+    // FormSubmit.co AJAX endpoint — activated 3 July 2026.
+    // The hash string below is FormSubmit's alias for valerie@phoennixai.com
+    // (from the activation email) — it hides the raw address from page source.
+    // CC: eloyiadah@ukald.com via _cc in formData above.
+    fetch('https://formsubmit.co/ajax/6e8c0b60e58d2190b39dd15c9543dd84', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(formData)
